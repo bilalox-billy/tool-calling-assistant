@@ -59,10 +59,10 @@ class OllamaAdapter:
         except Exception:
             return False
     
-    def __del__(self):
-        try:
-            self._client.close()
-        except Exception:
-            pass
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, *args):
+        self._client.close()
 
         
