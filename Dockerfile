@@ -32,4 +32,5 @@ USER appuser
 # Env vars are injected at runtime (docker run -e / --env-file)
 # Do NOT bake .env into the image
 
+EXPOSE 8000
 CMD ["python", "main.py"]

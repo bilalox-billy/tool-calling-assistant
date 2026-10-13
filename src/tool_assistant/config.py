@@ -17,7 +17,7 @@ class AppConfig(BaseSettings):
 
 
     # Security
-    allowed_tools: str = "calculate,get_date,search_docs"
+    allowed_tools: str = "calculate,get_date,get_weather"
     log_tool_calls: bool = True
     sanitize_tool_results: bool = True
     max_history_messages: int = Field(default=50, ge=5)
