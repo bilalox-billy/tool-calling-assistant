@@ -4,8 +4,8 @@ Production agent loop with all safety features.
 """
 import logging
 from dataclasses import dataclass, field
-from ..adapters.base import ModelAdapter
-from ..tools.registry import ProductionToolRegistry
+from src.adapters.base import ModelAdapter
+from src.tool_assistant.tools.registry import ProductionToolRegistry
 
 logger = logging.getLogger(__name__)
 
@@ -63,7 +63,7 @@ class ProductionAgentLoop:
 
             # Call model
             try:
-                model_response = self.adapter.chat(history, self.registry.get_schemas())
+                model_response = self.adapter.chat(history, self.registry.get_schema())
             except ConnectionError as e:
                 result.final_answer = f"Error: Cannot reach model service: {e}"
                 result.termination_reason = "error"
@@ -77,7 +77,7 @@ class ProductionAgentLoop:
                 result.termination_reason = "answer"
                 return result
 
-            if model_response.has_tool_call:
+            if model_response.has_tool_calls:
                 tc = model_response.tool_calls[0]
 
                 # Loop detection

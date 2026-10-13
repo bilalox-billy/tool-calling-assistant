@@ -1,0 +1,30 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pycache
+
+# Virtual environment (never copy into image)
+.venv/
+
+# Local secrets / config
+.env
+
+# Dev tooling
+notebooks/
+*.ipynb
+.git/
+.gitignore
+
+# Build artefacts
+*.egg-info/
+dist/
+build/
+
+# Editor / OS
+.cursor/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
