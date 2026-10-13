@@ -32,7 +32,7 @@ class ProductionToolRegistry:
     def __init__(self, allowed_tools: set[str] | None = None, log_calls: bool = True):
 
         self._tools: dict = {}
-        self.allowed_tools = allowed_tools or set()
+        self.allowed_tools = allowed_tools  # None = allow all
         self.log_calls = log_calls
         self.call_logs: list[ToolCallLog] = []
 
@@ -100,7 +100,7 @@ class ProductionToolRegistry:
             result = f"Error: Tool execution failed: {type(e).__name__}: {e}"
             success = False
         
-        latelatency = (time.perf_counter() - start) * 1000
+        latency = (time.perf_counter() - start) * 1000
         self._log(session_id, tool_name, arguments, result, success, latency, iteration)
         return result, success
 
@@ -117,7 +117,7 @@ class ProductionToolRegistry:
             latency_ms=round(latency_ms, 2),
             iteration=iteration,
         )
-        self.call_log.append(log_entry)
+        self.call_logs.append(log_entry)
         logger.info(
             f"[{session_id}][iter {iteration}] {tool_name} → "
             f"{'OK' if success else 'ERR'} ({latency_ms:.1f}ms)"
